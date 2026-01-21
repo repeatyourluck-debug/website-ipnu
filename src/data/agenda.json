@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Buka Bersama",
+    "description": "bla bla bla",
+    "date": "2026-01-13",
+    "time": "22:11",
+    "location": "restaurant",
+    "category": "Sosial",
+    "id": 4
+  },
+  {
+    "id": 1,
+    "title": "Konferancab PC IPNU IPPNU Semarang",
+    "description": "Konferensi Anak Cabang untuk memilih kepengurusan baru periode 2024-2026.",
+    "date": "2024-02-15",
+    "time": "08:00",
+    "location": "Aula PCNU Kota Semarang",
+    "category": "Organisasi"
+  },
+  {
+    "id": 2,
+    "title": "Makesta Raya 2024",
+    "description": "Masa Kesetiaan Anggota tingkat cabang untuk kader baru IPNU IPPNU.",
+    "date": "2024-03-01",
+    "time": "07:00",
+    "location": "Ponpes Al-Itqon Semarang",
+    "category": "Kaderisasi"
+  },
+  {
+    "id": 3,
+    "title": "Pelatihan Jurnalistik Dasar",
+    "description": "Workshop penulisan berita dan konten media sosial untuk pelajar NU.",
+    "date": "2024-03-15",
+    "time": "09:00",
+    "location": "Sekretariat PC IPNU IPPNU",
+    "category": "Pelatihan"
+  }
+]

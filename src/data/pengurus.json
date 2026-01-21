@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Ahmad Fauzi",
+    "position": "Ketua Umum",
+    "organization": "IPNU",
+    "image": "/uploads/1768313092398_321710_firefly_p1024.jpg",
+    "instagram": "@ahmadfauzi"
+  },
+  {
+    "id": 2,
+    "name": "Siti Aisyah",
+    "position": "Ketua Umum",
+    "organization": "IPPNU",
+    "image": "/uploads/1768313113897_451741_1766636449273_image.jpg",
+    "instagram": "@sitiaisyah"
+  },
+  {
+    "id": 3,
+    "name": "Muhammad Rizki",
+    "position": "Sekretaris",
+    "organization": "IPNU",
+    "image": "/uploads/1768313132491_adobe_stock_71.jpg",
+    "instagram": "@muhrizki"
+  },
+  {
+    "id": 4,
+    "name": "Fatimah Zahra",
+    "position": "Sekretaris",
+    "organization": "IPPNU",
+    "image": "/uploads/1768313142950_adobe_stock_46.jpg",
+    "instagram": "@fatimahz"
+  },
+  {
+    "id": 5,
+    "name": "Hasan Basri",
+    "position": "Bendahara",
+    "organization": "IPNU",
+    "image": "/uploads/1768313152764_adobe_stock_45.jpg",
+    "instagram": "@hasanbasri"
+  },
+  {
+    "id": 6,
+    "name": "Nur Hidayah",
+    "position": "Bendahara",
+    "organization": "IPPNU",
+    "image": "/uploads/1768313166830_adobe_stock_51.jpg",
+    "instagram": "@nurhidayah"
+  },
+  {
+    "name": "fauzi",
+    "position": "penasihat",
+    "organization": "IPNU",
+    "image": "",
+    "instagram": "",
+    "id": 7
+  }
+]
