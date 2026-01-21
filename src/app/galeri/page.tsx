@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowLeft, Instagram } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 
+import { supabase } from "@/lib/supabaseClient";
+
 interface GalleryItem {
     id: number;
     title: string;
@@ -10,16 +12,17 @@ interface GalleryItem {
 }
 
 async function getGallery(): Promise<GalleryItem[]> {
-    const fs = await import("fs");
-    const path = await import("path");
-    const dataFilePath = path.join(process.cwd(), "src/data/gallery.json");
+    const { data, error } = await supabase
+        .from("gallery")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
+    if (error) {
+        console.error("Error fetching gallery:", error);
         return [];
     }
+
+    return data || [];
 }
 
 export const dynamic = "force-dynamic";

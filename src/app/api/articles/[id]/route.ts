@@ -1,21 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/articles.json");
-
-function readArticles() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
-
-function writeArticles(articles: unknown[]) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(articles, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET single article
 export async function GET(
@@ -23,10 +9,15 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const articles = readArticles();
-    const article = articles.find((a: { id: number }) => a.id === parseInt(id));
 
-    if (!article) {
+    // Supabase needs explicit ID type if using UUID, but here it's int8
+    const { data: article, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error || !article) {
         return NextResponse.json({ error: "Article not found" }, { status: 404 });
     }
 
@@ -39,18 +30,20 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const articles = readArticles();
-    const index = articles.findIndex((a: { id: number }) => a.id === parseInt(id));
+    const updatedData = await request.json();
 
-    if (index === -1) {
-        return NextResponse.json({ error: "Article not found" }, { status: 404 });
+    const { data, error } = await supabase
+        .from("articles")
+        .update(updatedData)
+        .eq("id", id)
+        .select()
+        .single();
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const updatedData = await request.json();
-    articles[index] = { ...articles[index], ...updatedData };
-    writeArticles(articles);
-
-    return NextResponse.json(articles[index]);
+    return NextResponse.json(data);
 }
 
 // DELETE article
@@ -59,13 +52,15 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const articles = readArticles();
-    const filteredArticles = articles.filter((a: { id: number }) => a.id !== parseInt(id));
 
-    if (filteredArticles.length === articles.length) {
-        return NextResponse.json({ error: "Article not found" }, { status: 404 });
+    const { error } = await supabase
+        .from("articles")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    writeArticles(filteredArticles);
     return NextResponse.json({ message: "Deleted successfully" });
 }

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Calendar, ArrowLeft } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 
+import { supabase } from "@/lib/supabaseClient";
+
 interface Article {
     id: number;
     title: string;
@@ -12,17 +14,17 @@ interface Article {
 }
 
 async function getArticles(): Promise<Article[]> {
-    // For server-side, read directly from JSON file
-    const fs = await import("fs");
-    const path = await import("path");
-    const dataFilePath = path.join(process.cwd(), "src/data/articles.json");
+    const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
+    if (error) {
+        console.error("Error fetching articles:", error);
         return [];
     }
+
+    return data || [];
 }
 
 export const dynamic = "force-dynamic"; // Always fetch fresh data

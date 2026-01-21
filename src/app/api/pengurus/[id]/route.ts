@@ -1,21 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/pengurus.json");
-
-function readPengurus() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
-
-function writePengurus(pengurus: unknown[]) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(pengurus, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET single pengurus
 export async function GET(
@@ -23,10 +9,14 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const pengurus = readPengurus();
-    const person = pengurus.find((p: { id: number }) => p.id === parseInt(id));
 
-    if (!person) {
+    const { data: person, error } = await supabase
+        .from("pengurus")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error || !person) {
         return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
 
@@ -39,18 +29,20 @@ export async function PUT(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const pengurus = readPengurus();
-    const index = pengurus.findIndex((p: { id: number }) => p.id === parseInt(id));
+    const updatedData = await request.json();
 
-    if (index === -1) {
-        return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const { data, error } = await supabase
+        .from("pengurus")
+        .update(updatedData)
+        .eq("id", id)
+        .select()
+        .single();
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const updatedData = await request.json();
-    pengurus[index] = { ...pengurus[index], ...updatedData };
-    writePengurus(pengurus);
-
-    return NextResponse.json(pengurus[index]);
+    return NextResponse.json(data);
 }
 
 // DELETE pengurus
@@ -59,13 +51,15 @@ export async function DELETE(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
-    const pengurus = readPengurus();
-    const filtered = pengurus.filter((p: { id: number }) => p.id !== parseInt(id));
 
-    if (filtered.length === pengurus.length) {
-        return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const { error } = await supabase
+        .from("pengurus")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    writePengurus(filtered);
     return NextResponse.json({ message: "Deleted" });
 }

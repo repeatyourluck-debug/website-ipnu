@@ -1,44 +1,38 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/articles.json");
-
-function readArticles() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
-
-function writeArticles(articles: unknown[]) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(articles, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET all articles
 export async function GET() {
-    const articles = readArticles();
+    const { data: articles, error } = await supabase
+        .from("articles")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
     return NextResponse.json(articles);
 }
 
 // POST new article
 export async function POST(request: Request) {
-    const articles = readArticles();
     const newArticle = await request.json();
 
-    // Generate new ID
-    const maxId = articles.reduce((max: number, a: { id: number }) => Math.max(max, a.id), 0);
-    newArticle.id = maxId + 1;
-    newArticle.date = new Date().toLocaleDateString("id-ID", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-    });
+    // Remove 'id' if present, let DB handle it
+    const { id, ...articleData } = newArticle;
 
-    articles.unshift(newArticle); // Add to beginning
-    writeArticles(articles);
+    const { data, error } = await supabase
+        .from("articles")
+        .insert([articleData])
+        .select()
+        .single();
 
-    return NextResponse.json(newArticle, { status: 201 });
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(data, { status: 201 });
 }

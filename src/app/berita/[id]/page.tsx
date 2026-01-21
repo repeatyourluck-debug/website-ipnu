@@ -3,6 +3,8 @@ import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { notFound } from "next/navigation";
 import Footer from "@/components/layout/Footer";
 
+import { supabase } from "@/lib/supabaseClient";
+
 interface Article {
     id: number;
     title: string;
@@ -14,17 +16,18 @@ interface Article {
 }
 
 async function getArticle(id: string): Promise<Article | null> {
-    const fs = await import("fs");
-    const path = await import("path");
-    const dataFilePath = path.join(process.cwd(), "src/data/articles.json");
+    const { data: article, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", id)
+        .single();
 
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        const articles: Article[] = JSON.parse(data);
-        return articles.find((a) => a.id === parseInt(id)) || null;
-    } catch {
+    if (error) {
+        // If not found or error
         return null;
     }
+
+    return article;
 }
 
 export const dynamic = "force-dynamic";

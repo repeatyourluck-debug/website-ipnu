@@ -1,38 +1,37 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/pengurus.json");
-
-function readPengurus() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
-
-function writePengurus(pengurus: unknown[]) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(pengurus, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET all pengurus
 export async function GET() {
-    const pengurus = readPengurus();
+    const { data: pengurus, error } = await supabase
+        .from("pengurus")
+        .select("*")
+        .order("created_at", { ascending: true });
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
     return NextResponse.json(pengurus);
 }
 
 // POST new pengurus
 export async function POST(request: Request) {
-    const pengurus = readPengurus();
     const newPengurus = await request.json();
 
-    const maxId = pengurus.reduce((max: number, p: { id: number }) => Math.max(max, p.id), 0);
-    newPengurus.id = maxId + 1;
+    const { id, ...pengurusData } = newPengurus;
 
-    pengurus.push(newPengurus);
-    writePengurus(pengurus);
+    const { data, error } = await supabase
+        .from("pengurus")
+        .insert([pengurusData])
+        .select()
+        .single();
 
-    return NextResponse.json(newPengurus, { status: 201 });
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(data, { status: 201 });
 }

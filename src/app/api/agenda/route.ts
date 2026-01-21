@@ -1,38 +1,38 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/agenda.json");
-
-function readAgenda() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-}
-
-function writeAgenda(agenda: unknown[]) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(agenda, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET all agenda
 export async function GET() {
-    const agenda = readAgenda();
+    const { data: agenda, error } = await supabase
+        .from("agenda")
+        .select("*")
+        .order("date", { ascending: true }); // Order agenda by date
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
     return NextResponse.json(agenda);
 }
 
 // POST new agenda
 export async function POST(request: Request) {
-    const agenda = readAgenda();
     const newAgenda = await request.json();
 
-    const maxId = agenda.reduce((max: number, a: { id: number }) => Math.max(max, a.id), 0);
-    newAgenda.id = maxId + 1;
+    // Remove 'id' if present
+    const { id, ...agendaData } = newAgenda;
 
-    agenda.unshift(newAgenda);
-    writeAgenda(agenda);
+    const { data, error } = await supabase
+        .from("agenda")
+        .insert([agendaData])
+        .select()
+        .single();
 
-    return NextResponse.json(newAgenda, { status: 201 });
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(data, { status: 201 });
 }

@@ -1,35 +1,44 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { supabase } from "@/lib/supabaseClient";
 
-const dataFilePath = path.join(process.cwd(), "src/data/settings.json");
-
-function readSettings() {
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
-        return {};
-    }
-}
-
-function writeSettings(settings: Record<string, string>) {
-    fs.writeFileSync(dataFilePath, JSON.stringify(settings, null, 2));
-}
+export const dynamic = "force-dynamic";
 
 // GET settings
 export async function GET() {
-    const settings = readSettings();
-    return NextResponse.json(settings);
+    const { data: settingsData, error } = await supabase
+        .from("settings")
+        .select("*");
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Convert array [{key: 'a', value: '1'}] to object {a: '1'}
+    const settingsObject = settingsData.reduce((acc, curr) => {
+        acc[curr.key] = curr.value;
+        return acc;
+    }, {} as Record<string, string>);
+
+    return NextResponse.json(settingsObject);
 }
 
 // PUT update settings
 export async function PUT(request: Request) {
-    const currentSettings = readSettings();
     const newSettings = await request.json();
 
-    const merged = { ...currentSettings, ...newSettings };
-    writeSettings(merged);
+    // Upsert each key-value pair
+    const updates = Object.entries(newSettings).map(([key, value]) => ({
+        key,
+        value: String(value),
+    }));
 
-    return NextResponse.json(merged);
+    const { error } = await supabase
+        .from("settings")
+        .upsert(updates, { onConflict: "key" });
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(newSettings);
 }

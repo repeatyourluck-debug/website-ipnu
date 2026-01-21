@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowLeft, Instagram } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 
+import { supabase } from "@/lib/supabaseClient";
+
 interface Pengurus {
     id: number;
     name: string;
@@ -12,16 +14,17 @@ interface Pengurus {
 }
 
 async function getPengurus(): Promise<Pengurus[]> {
-    const fs = await import("fs");
-    const path = await import("path");
-    const dataFilePath = path.join(process.cwd(), "src/data/pengurus.json");
+    const { data, error } = await supabase
+        .from("pengurus")
+        .select("*")
+        .order("created_at", { ascending: true });
 
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
+    if (error) {
+        console.error("Error fetching pengurus:", error);
         return [];
     }
+
+    return data || [];
 }
 
 export const dynamic = "force-dynamic";

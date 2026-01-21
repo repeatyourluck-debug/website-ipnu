@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, MapPin } from "lucide-react";
 import Footer from "@/components/layout/Footer";
 
+import { supabase } from "@/lib/supabaseClient";
+
 interface Agenda {
     id: number;
     title: string;
@@ -13,16 +15,17 @@ interface Agenda {
 }
 
 async function getAgenda(): Promise<Agenda[]> {
-    const fs = await import("fs");
-    const path = await import("path");
-    const dataFilePath = path.join(process.cwd(), "src/data/agenda.json");
+    const { data, error } = await supabase
+        .from("agenda")
+        .select("*")
+        .order("date", { ascending: true });
 
-    try {
-        const data = fs.readFileSync(dataFilePath, "utf-8");
-        return JSON.parse(data);
-    } catch {
+    if (error) {
+        console.error("Error fetching agenda:", error);
         return [];
     }
+
+    return data || [];
 }
 
 export const dynamic = "force-dynamic";
