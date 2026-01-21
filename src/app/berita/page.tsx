@@ -34,7 +34,7 @@ export default async function BeritaPage() {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <div className="flex-1 bg-zinc-50 dark:bg-zinc-950">
+            <div className="flex-1 bg-zinc-50">
                 <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
                     {/* Header */}
                     <div className="mb-12">
@@ -55,7 +55,7 @@ export default async function BeritaPage() {
                             {articles.map((article) => (
                                 <article
                                     key={article.id}
-                                    className="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-black/5 dark:border-white/10 group"
+                                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all border border-black/5 group"
                                 >
                                     <div className="relative overflow-hidden">
                                         <img

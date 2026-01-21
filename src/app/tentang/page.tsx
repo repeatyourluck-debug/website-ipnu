@@ -22,7 +22,7 @@ export default function TentangPage() {
                 {/* Content */}
                 <div className="mx-auto max-w-5xl px-6 py-16">
                     {/* Intro */}
-                    <div className="prose prose-lg dark:prose-invert max-w-none mb-16">
+                    <div className="prose prose-lg max-w-none mb-16">
                         <p className="text-lg text-foreground/70 leading-relaxed">
                             <strong>IPNU (Ikatan Pelajar Nahdlatul Ulama)</strong> dan <strong>IPPNU (Ikatan Pelajar Putri Nahdlatul Ulama)</strong>
                             adalah organisasi pelajar di bawah naungan Nahdlatul Ulama yang bergerak dalam bidang kaderisasi,
@@ -42,7 +42,7 @@ export default function TentangPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10 mb-6">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5 mb-6">
                             <h3 className="text-lg font-semibold text-ipnu-primary mb-4 flex items-center gap-2">
                                 <Target className="h-5 w-5" /> Visi
                             </h3>
@@ -54,7 +54,7 @@ export default function TentangPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
                             <h3 className="text-lg font-semibold text-ipnu-primary mb-4 flex items-center gap-2">
                                 <Lightbulb className="h-5 w-5" /> Misi
                             </h3>
@@ -103,7 +103,7 @@ export default function TentangPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10 mb-6">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5 mb-6">
                             <h3 className="text-lg font-semibold text-ippnu-primary mb-4 flex items-center gap-2">
                                 <Target className="h-5 w-5" /> Visi
                             </h3>
@@ -113,7 +113,7 @@ export default function TentangPage() {
                             </p>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
                             <h3 className="text-lg font-semibold text-ippnu-primary mb-4 flex items-center gap-2">
                                 <Lightbulb className="h-5 w-5" /> Misi
                             </h3>

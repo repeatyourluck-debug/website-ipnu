@@ -51,7 +51,7 @@ export default async function GaleriPage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {gallery.map((item) => (
                             <div key={item.id} className="group relative break-inside-avoid">
-                                <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-800 relative shadow-sm hover:shadow-xl transition-all duration-300">
+                                <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl bg-gray-100 relative shadow-sm hover:shadow-xl transition-all duration-300">
                                     <img
                                         src={item.image}
                                         alt={item.title}

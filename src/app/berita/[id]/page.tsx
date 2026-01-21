@@ -59,7 +59,7 @@ export default async function ArticleDetailPage({
 
                 {/* Content */}
                 <article className="mx-auto max-w-4xl px-6 -mt-32 relative z-10">
-                    <div className="bg-white dark:bg-zinc-900 rounded-2xl shadow-xl p-8 md:p-12">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
                         {/* Back Link */}
                         <Link
                             href="/berita"
@@ -89,7 +89,7 @@ export default async function ArticleDetailPage({
                         </p>
 
                         {/* Content */}
-                        <div className="prose prose-lg dark:prose-invert max-w-none">
+                        <div className="prose prose-lg max-w-none">
                             {article.content.split("\n").map((paragraph, index) => (
                                 <p key={index} className="text-foreground/80 leading-relaxed mb-4">
                                     {paragraph}
@@ -98,7 +98,7 @@ export default async function ArticleDetailPage({
                         </div>
 
                         {/* Share */}
-                        <div className="mt-12 pt-8 border-t border-black/10 dark:border-white/10">
+                        <div className="mt-12 pt-8 border-t border-black/10">
                             <p className="text-sm text-foreground/60 mb-3">Bagikan artikel ini:</p>
                             <div className="flex gap-3">
                                 <a

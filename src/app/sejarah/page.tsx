@@ -55,7 +55,7 @@ export default function SejarahPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10 mb-8">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5 mb-8">
                             <div className="flex flex-col md:flex-row gap-8">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 text-ipnu-primary mb-4">
@@ -107,7 +107,7 @@ export default function SejarahPage() {
                             </div>
                         </div>
 
-                        <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-sm border border-black/5 dark:border-white/10 mb-8">
+                        <div className="bg-white rounded-2xl p-8 shadow-sm border border-black/5 mb-8">
                             <div className="flex flex-col md:flex-row gap-8">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 text-ippnu-primary mb-4">

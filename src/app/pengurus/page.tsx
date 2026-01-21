@@ -68,7 +68,7 @@ export default async function PengurusPage() {
                             {ipnuPengurus.map((person) => (
                                 <div
                                     key={person.id}
-                                    className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-sm border border-black/5 dark:border-white/10 text-center hover:shadow-lg transition-shadow"
+                                    className="bg-white rounded-2xl p-6 shadow-sm border border-black/5 text-center hover:shadow-lg transition-shadow"
                                 >
                                     <img
                                         src={person.image}
@@ -108,7 +108,7 @@ export default async function PengurusPage() {
                             {ippnuPengurus.map((person) => (
                                 <div
                                     key={person.id}
-                                    className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-sm border border-black/5 dark:border-white/10 text-center hover:shadow-lg transition-shadow"
+                                    className="bg-white rounded-2xl p-6 shadow-sm border border-black/5 text-center hover:shadow-lg transition-shadow"
                                 >
                                     <img
                                         src={person.image}

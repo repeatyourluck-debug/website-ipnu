@@ -61,7 +61,7 @@ export default async function AgendaPage() {
                             {agenda.map((item) => (
                                 <div
                                     key={item.id}
-                                    className="bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-sm border border-black/5 dark:border-white/10 flex gap-6 hover:shadow-lg transition-shadow"
+                                    className="bg-white rounded-2xl p-6 shadow-sm border border-black/5 flex gap-6 hover:shadow-lg transition-shadow"
                                 >
                                     {/* Date Box */}
                                     <div className="flex-shrink-0 w-20 h-20 rounded-xl bg-gradient-to-br from-ipnu-primary to-ipnu-secondary flex flex-col items-center justify-center text-white">
