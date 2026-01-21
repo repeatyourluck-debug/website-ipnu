@@ -6,7 +6,7 @@ import { mockArticles } from "@/lib/data";
 
 export default function NewsSection() {
     return (
-        <section className="py-24 sm:py-32 bg-zinc-50 dark:bg-zinc-900/50">
+        <section className="py-24 sm:py-32 bg-white">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl text-center">
                     <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
@@ -20,7 +20,7 @@ export default function NewsSection() {
                     {mockArticles.map((post) => (
                         <article
                             key={post.id}
-                            className="flex flex-col items-start justify-between bg-white dark:bg-white/5 p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-black/5 dark:border-white/5"
+                            className="flex flex-col items-start justify-between bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-black/5"
                         >
                             <div className="relative w-full">
                                 <img
