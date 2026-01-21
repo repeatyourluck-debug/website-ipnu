@@ -3,7 +3,7 @@ import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="bg-white dark:bg-black border-t border-black/5 dark:border-white/10" aria-labelledby="footer-heading">
+        <footer className="bg-white border-t border-black/5" aria-labelledby="footer-heading">
             <h2 id="footer-heading" className="sr-only">
                 Footer
             </h2>
@@ -11,7 +11,7 @@ export default function Footer() {
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     <div className="space-y-8">
                         <h3 className="text-xl font-bold text-ipnu-primary">IPNU IPPNU Semarang</h3>
-                        <p className="text-sm leading-6 text-gray-600 dark:text-gray-400">
+                        <p className="text-sm leading-6 text-gray-600">
                             Belajar, Berjuang, Bertakwa.
                             <br />
                             Membangun peradaban pelajar yang berakhlakul karimah.
@@ -37,17 +37,17 @@ export default function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-foreground">Organisasi</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="/tentang" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/tentang" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Profil
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/pengurus" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/pengurus" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Struktur Pengurus
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/sejarah" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/sejarah" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Sejarah
                                         </Link>
                                     </li>
@@ -57,17 +57,17 @@ export default function Footer() {
                                 <h3 className="text-sm font-semibold leading-6 text-foreground">Informasi</h3>
                                 <ul role="list" className="mt-6 space-y-4">
                                     <li>
-                                        <Link href="/berita" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/berita" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Berita Terbaru
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/agenda" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/agenda" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Agenda Kegiatan
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/galeri" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary dark:text-gray-400">
+                                        <Link href="/galeri" className="text-sm leading-6 text-gray-600 hover:text-ipnu-primary">
                                             Galeri Foto
                                         </Link>
                                     </li>
@@ -78,7 +78,7 @@ export default function Footer() {
                             <div>
                                 <h3 className="text-sm font-semibold leading-6 text-foreground">Kontak</h3>
                                 <ul role="list" className="mt-6 space-y-4">
-                                    <li className="flex items-start gap-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                                    <li className="flex items-start gap-2 text-sm leading-6 text-gray-600">
                                         <Mail className="h-5 w-5 mt-0.5" />
                                         <span>
                                             Sekretariat PC IPNU IPPNU Kota Semarang<br />
@@ -91,7 +91,7 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="mt-16 border-t border-black/10 pt-8 sm:mt-20 lg:mt-24 dark:border-white/10">
+                <div className="mt-16 border-t border-black/10 pt-8 sm:mt-20 lg:mt-24">
                     <p className="text-xs leading-5 text-gray-500">
                         &copy; {new Date().getFullYear()} PC IPNU IPPNU Kota Semarang. All rights reserved.
                     </p>

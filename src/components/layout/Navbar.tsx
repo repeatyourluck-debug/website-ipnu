@@ -19,13 +19,13 @@ export default function Navbar() {
     const pathname = usePathname();
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b border-white/10 bg-white/80 backdrop-blur-md dark:bg-black/80">
+        <nav className="sticky top-0 z-50 w-full border-b border-black/10 bg-white/80 backdrop-blur-md">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo / Brand */}
                     <div className="flex items-center gap-2">
                         <Link href="/" className="flex items-center gap-2">
-                            <span className="text-xl font-bold tracking-tight text-ipnu-primary dark:text-ipnu-primary">
+                            <span className="text-xl font-bold tracking-tight text-ipnu-primary">
                                 IPNU IPPNU
                             </span>
                             <span className="hidden text-xl font-light text-foreground sm:inline-block">
@@ -69,7 +69,7 @@ export default function Navbar() {
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             type="button"
-                            className="inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ipnu-primary dark:hover:bg-white/10"
+                            className="inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ipnu-primary"
                             aria-controls="mobile-menu"
                             aria-expanded="false"
                         >
@@ -99,7 +99,7 @@ export default function Navbar() {
                                         "block rounded-md px-3 py-2 text-base font-medium",
                                         isActive
                                             ? "bg-ipnu-primary/10 text-ipnu-primary"
-                                            : "text-foreground/80 hover:bg-black/5 hover:text-foreground dark:hover:bg-white/10"
+                                            : "text-foreground/80 hover:bg-black/5 hover:text-foreground"
                                     )}
                                 >
                                     {link.name}
